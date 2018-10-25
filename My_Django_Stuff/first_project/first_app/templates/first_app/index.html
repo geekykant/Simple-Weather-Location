@@ -16,6 +16,9 @@
   <title>Fulfilness - Django Loaded</title>
   <link rel="shortcut icon" type="image/png" href="https://www.google.com/favicon.ico" />
 
+  <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.5.5/firebase-firestore.js"></script>
+
   <!-- bootstrap css CDN -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
@@ -108,6 +111,27 @@
 {% include "first_app/footer.html" %}
 
 <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "######",
+    authDomain: "####.firebaseapp.com",
+    databaseURL: "https://####.firebaseio.com",
+    projectId: "#####",
+    storageBucket: "",
+    messagingSenderId: "1231235817236"
+  };
+
+  firebase.initializeApp(config);
+  // Initialize Cloud Firestore through Firebase
+  const db = firebase.firestore();
+
+  // Disable deprecated features
+  db.settings({
+    timestampsInSnapshots: true
+  });
+</script>
+
+<script>
   $("#get_location_button").click(function() {
     $("#get_location_button").addClass('loading');
     getLocation();
@@ -117,7 +141,7 @@
     if (navigator.geolocation) {
       var timeoutVal = 10 * 1000 * 1000;
       navigator.geolocation.getCurrentPosition(
-        displayPosition,
+        displaySendPosition,
         displayError, {
           enableHighAccuracy: true,
           timeout: timeoutVal,
@@ -128,9 +152,29 @@
       alert("Geolocation is not supported by this browser");
     }
 
-    function displayPosition(position) {
+    function displaySendPosition(position) {
       $("#location_info").text("Latitude: " + position.coords.latitude + ", Longitude: " + position.coords.longitude);
       $("#get_location_button").removeClass('loading');
+
+      db.collection("locations").add({
+          location: new firebase.firestore.GeoPoint(position.coords.latitude, position.coords.longitude)
+        }).then(function(docRef) {
+          console.log("Success!! Location stored in: ", docRef.id);
+          receiveFbPosition();
+        })
+        .catch(function(error) {
+          console.error("Error adding document: ", error);
+        });
+    }
+
+    function receiveFbPosition() {
+      db.collection("locations").get().then(function(querySnapshot) {
+        console.log("Listing Firebase Locations:");
+        querySnapshot.forEach(function(doc) {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+        });
+      });
     }
 
     function displayError(error) {
