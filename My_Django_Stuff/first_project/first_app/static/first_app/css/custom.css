@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('https://fonts.googleapis.com/css?family=Zilla+Slab');
+
+body{
+  margin: 30px;
+}
+
+.navbar-brand {
+  font-size: 30px;
+}
+
+.navbar {
+  padding: 20px;
+  font-size: 14px;
+}
+
+#home_content{
+  padding: 10px;
+  font-size: 17px;
+  padding-top: 20px;
+  text-align: center;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.footer{
+  text-align: center;
+  color: white;
+  font-size: 13px;
+  padding: 10px;
+}
+
+.card{
+  display: inline-block;
+}
