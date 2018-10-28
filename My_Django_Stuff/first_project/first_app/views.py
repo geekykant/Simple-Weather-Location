@@ -4,12 +4,29 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse
 
-
 # Create your views here.
 
+import requests
+import json
+
+
 def index(request):
-    my_dict = {'insert_me': 'hello i am from first_app/index.html!'}
-    return render(request, 'first_app/index.html', context=my_dict)
+    url = "http://api.openweathermap.org/data/2.5/weather"
+
+    params = {'lat': request.GET.get('lat', 35), 'lon': request.GET.get('lon', 139),
+              'appid': 'af9b69f5927b1ad56e894921325ab85e'}
+
+    print(params)
+
+    weather_api = json.loads(requests.get(url, params).content)
+
+    location_data = \
+        {'location_info': weather_api['weather'][0]['main'].encode('utf-8') + " ," + weather_api['weather'][0][
+            'description'].encode('utf-8'),
+         'location_name': weather_api['name'].encode('utf-8')
+         }
+
+    return render(request, 'first_app/index.html', context=location_data)
 
 
 def about(request):
