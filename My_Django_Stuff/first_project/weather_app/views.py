@@ -26,8 +26,8 @@ def index(request):
          'location_name': weather_api['name'].encode('utf-8')
          }
 
-    return render(request, 'first_app/index.html', context=location_data)
+    return render(request, 'weather_app/index.html', context=location_data)
 
 
 def about(request):
-    return render(request, 'first_app/about.html')
+    return render(request, 'weather_app/about.html')

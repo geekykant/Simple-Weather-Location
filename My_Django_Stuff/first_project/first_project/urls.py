@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from first_app import views as v1
+from weather_app import views as v1
 
 urlpatterns = [
     url(r'^', v1.index),
