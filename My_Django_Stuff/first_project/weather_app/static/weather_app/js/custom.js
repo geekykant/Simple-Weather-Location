@@ -3,13 +3,13 @@ $("#get_location_button").click(function() {
   getLocation();
 });
 
-async function DoSubmit() {
+function DoSubmit() {
   $("#get_location_button").addClass('loading');
   await getLocation();
   return true;
 }
 
-async function getLocation() {
+function getLocation() {
   if (navigator.geolocation) {
     var timeoutVal = 10 * 1000 * 1000;
     navigator.geolocation.getCurrentPosition(
@@ -30,7 +30,6 @@ async function getLocation() {
 
     $("#lat").val(position.coords.latitude);
     $("#lon").val(position.coords.longitude);
-    // loadWeather(position.coords.latitude, position.coords.longitude);
 
     // add location to database
     db.collection("locations").add({
