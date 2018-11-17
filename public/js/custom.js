@@ -1,12 +1,30 @@
-$("#get_location_button").click(function () {
-    $("#get_location_button").addClass('loading');
-    getLocation();
-});
+$("#get_location_button").click(DoSubmit);
+$("#submit_location").click(SubmitLocation);
+
+function SubmitLocation() {
+    $("#submit_location").addClass('loading');
+    var location = $("#location_input").val();
+    
+    $.ajax({
+            type: "GET",
+            url: `get_by_location`,
+            data: `location=${location}`,
+            success: function (jsonObj) {
+                $("#location_name").text(jsonObj.location_name);
+                $("#location_data").text(jsonObj.location_data);
+
+                var img = $('<img id="weather_icon">'); 
+                img.attr('src', jsonObj.icon);
+                img.prependTo('#location_name');
+
+                $("#submit_location").removeClass('loading');
+            }
+        });
+}
 
 function DoSubmit() {
     $("#get_location_button").addClass('loading');
     getLocation();
-    return true;
 }
 
 function getLocation() {

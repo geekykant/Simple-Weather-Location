@@ -62,7 +62,8 @@ app.get('/get_by_location',function(req,res){
 			.then(function(msg){
 			let json = JSON.parse(msg);
 			res.send({location_data: json['weather'][0]['main'] + "," + json['weather'][0]['description'], 
-				location_name: json['name'], icon:`http://openweathermap.org/img/w/${json['weather'][0]['icon']}.png`});
+				location_name: `${json['name']} (${json['sys']['country']})`, icon:`http://openweathermap.org/img/w/${json['weather'][0]['icon']}.png`});
+			console.log(json)
 		})
 		.catch(function(err){
 			console.log(err);
