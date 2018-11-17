@@ -49,6 +49,7 @@
 
   </div>
 
+<% if(locals.location_name) { %>
   <div class="container" style="margin-top:30px;" id="added_locations">
     <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
       <div class="card-header" id="location_name"><%= location_name %></div>
@@ -57,6 +58,7 @@
       </div>
     </div>
   </div>
+  <% } %>
 
   </div>
 
