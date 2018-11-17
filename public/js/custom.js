@@ -37,6 +37,10 @@ function getLocation() {
                 $("#location_name").text(jsonObj.location_name);
                 $("#location_data").text(jsonObj.location_data);
 
+                var img = $('<img id="weather_icon">'); 
+                img.attr('src', jsonObj.icon);
+                img.prependTo('#location_name');
+
                 $("#get_location_button").removeClass('loading');
             }
         });

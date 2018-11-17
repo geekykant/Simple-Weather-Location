@@ -1,64 +1,68 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <!-- Browser theme color -->
-  <meta name="theme-color" content="#3f51b5">
-  <meta name="msapplication-navbutton-color" content="#3f51b5">
-  <meta name="apple-mobile-web-app-status-bar-style" content="#3f51b5">
+    <!-- Browser theme color -->
+    <meta name="theme-color" content="#3f51b5">
+    <meta name="msapplication-navbutton-color" content="#3f51b5">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#3f51b5">
 
-  <title>Fulfilness - NodeJS Loaded</title>
+    <title>Fulfilness - NodeJS Loaded</title>
 
-  <% include partials/extras.ejs %>
+    <% include partials/extras.ejs %>
 </head>
 
 <body>
 
-  <% include partials/header.ejs %>
+    <% include partials/header.ejs %>
 
-  <div id="home_content">
-    <p><b>Fulfilness</b> is the motive to make the NodeJS project a simple working python project.</p>
+        <div id="home_content">
+            <p><b>Fulfilness</b> is the motive to make the NodeJS project a simple working python project.</p>
 
-<!--    <form class="form" method="get" action="/" onsubmit="DoSubmit();">-->
-      <div class="form-row" style="justify-content: center;">
-        <div class="form-group col-md-4">
-          <input type="text" id="query" class="form-control typeahead" placeholder="Enter the location or click on location button to check weather" autocomplete="off">
-        </div>
-        <div class="form-group col-md-2" style="text-align: center;">
-          <button id="btn-submit1" class="ui primary button torrentic-blue" style="width: 70%; display: inline;padding: .5rem .75rem; font-size: 1rem; line-height: 1.25;  font-weight: 400;">
+            <!--    <form class="form" method="get" action="/" onsubmit="DoSubmit();">-->
+            <div class="form-row" style="justify-content: center;">
+                <div class="form-group col-md-4">
+                    <input type="text" id="query" class="form-control typeahead" placeholder="Enter the location or click on location button to check weather" autocomplete="off">
+                </div>
+                <div class="form-group col-md-2" style="text-align: center;">
+                    <button id="btn-submit1" class="ui primary button torrentic-blue" style="width: 70%; display: inline;padding: .5rem .75rem; font-size: 1rem; line-height: 1.25;  font-weight: 400;">
             Search
           </button>
-        </div>
+                </div>
 
-        <div class="form-group col-md-1" style="text-align: center;">
-          <button id="get_location_button" class="ui black button" style="width: 100%; display: inline;padding: .5rem .75rem; font-size: 1rem; line-height: 1.25;  font-weight: 400;">
+                <div class="form-group col-md-1" style="text-align: center;">
+                    <button id="get_location_button" class="ui black button" style="width: 100%; display: inline;padding: .5rem .75rem; font-size: 1rem; line-height: 1.25;  font-weight: 400;">
             <i class="fa fa-map-marker" aria-hidden="true"></i> Get Location
           </button>
+                </div>
+            </div>
+
+            <input name="lat" value="" id="lat" type="hidden">
+            <input name="lon" value="" id="lon" type="hidden">
+
+            <!--    </form>-->
+
         </div>
-      </div>
 
-      <input name="lat" value="" id="lat" type="hidden">
-      <input name="lon" value="" id="lon" type="hidden">
+        <div class="container" style="margin-top:30px;" id="added_locations">
+            <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header" id="location_name">
+                   <img id="weather_icon" src="<%= icon %>" alt="Not found!">
+                    <h3><%= location_name %>
+                </div>
+                <div class="card-body">
+                    <p class="card-text" id="location_data">
+                        <%= location_data %>
+                    </p>
+                </div>
+            </div>
+        </div>
 
-<!--    </form>-->
-
-  </div>
-
-  <div class="container" style="margin-top:30px;" id="added_locations">
-    <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-      <div class="card-header" id="location_name"><%= location_name %></div>
-      <div class="card-body">
-        <p class="card-text" id="location_data"><%= location_data %></p>
-      </div>
-    </div>
-  </div>
-
-  </div>
+        </div>
 
 </body>
 
