@@ -13,7 +13,7 @@ app.use(express.static('public'))
 
 //index
 app.get('/',function(req,res){
-	res.render('index');
+	res.render('index', {location_data: '', location_name: ''});
 });
 
 //about
