@@ -1,19 +1,24 @@
 $("#get_location_button").click(DoSubmit);
 $("#submit_location").click(SubmitLocation);
 
+//$("#added_locations > div").each(function(index){
+//    this.remove();
+//});
+
 function SubmitLocation() {
     $("#submit_location").addClass('loading');
     var location = $("#location_input").val();
-    
+
     $.ajax({
-            type: "GET",
-            url: `get_by_location`,
-            data: `location=${location}`,
-            success: function (res_data) {
-                $("#added_locations").append(res_data);
-                $("#submit_location").removeClass('loading');
-            }
-        });
+        type: "GET",
+        url: `get_weather`,
+        data: `location=${location}`,
+        success: function (res_data) {
+            $("#added_locations").append(res_data);
+        }
+    }).always(function () {
+        $("#submit_location").removeClass('loading');
+    }).fail(function () {});;
 }
 
 function DoSubmit() {
@@ -42,14 +47,16 @@ function getLocation() {
         data.lon = position.coords.longitude;
 
         $.ajax({
-            type: "GET",
-            url: `get_weather`,
-            data: `lat=${data.lat}&lon=${data.lon}`,
-            success: function (res_data) {
-                $("#added_locations").append(res_data);
+                type: "GET",
+                url: `get_weather`,
+                data: `lat=${data.lat}&lon=${data.lon}`,
+                success: function (res_data) {
+                    $("#added_locations").append(res_data);
+                }
+            }).always(function () {
                 $("#get_location_button").removeClass('loading');
-            }
-        });
+            })
+            .fail(function () {});
 
         // add location to database
         //        db.collection("locations").add({

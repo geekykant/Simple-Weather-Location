@@ -27,22 +27,9 @@ app.get('/get_weather',function(req,res){
 
 	var request_url = `${url}?appid=${appid}&lat=${req.param('lat')}&lon=${req.param('lon')}`;
 
-	// const options = {  
-	//     url: request_url,
-	//     method: 'GET',
-	//     headers: {'Accept': 'application/json'}
-	// };
-
-	// request(options)
-	// 	.then(function(msg){
-	// 		let json = JSON.parse(msg);
-	// 		res.send({location_data: json['weather'][0]['main'] + "," + json['weather'][0]['description'], 
-	// 			location_name: json['name'],icon:`http://openweathermap.org/img/w/${json['weather'][0]['icon']}.png`});
-	// 	})
-	// 	.catch(function(err){
-	// 		console.log(err);
-	// 		res.send(500, 'Something went wrong');
-	// 	});
+	if(req.param('location')!=undefined){
+		request_url += `&q=${req.param('location')}`;
+	}
 
 	const options = {  
 	    url: request_url,
@@ -53,38 +40,14 @@ app.get('/get_weather',function(req,res){
 	request(options)
 		.then(function(msg){
 			let json = JSON.parse(msg);
-			res.render('partials/data',{location_data: json['weather'][0]['main'] + "," + json['weather'][0]['description'], 
-				location_name: json['name'],icon:`http://openweathermap.org/img/w/${json['weather'][0]['icon']}.png`});
+			console.log(json);
+			res.render('partials/data',{location_data: `${json['weather'][0]['main']}, ${json['weather'][0]['description']}`, 
+				location_name: `${json['name']} (${json['sys']['country']})`,icon:`http://openweathermap.org/img/w/${json['weather'][0]['icon']}.png`,
+				location_celsius: `Min: ${ Math.floor((json['main']['temp_min']-273)* 100)/100 } Max:${Math.floor((json['main']['temp_max']-273)* 100)/100}`});
 		})
 		.catch(function(err){
 			console.log(err);
-			res.send(500, 'Something went wrong');
-		});
-});
-
-
-app.get('/get_by_location',function(req,res){
-	var url = "http://api.openweathermap.org/data/2.5/weather";
-	let appid = "af9b69f5927b1ad56e894921325ab85e";
-
-	var request_url = `${url}?appid=${appid}&q=${req.param('location')}`;
-
-	const options = {  
-	    url: request_url,
-	    method: 'GET',
-	    headers: {'Accept': 'application/json'}
-	};
-
-	request(options)
-			.then(function(msg){
-			let json = JSON.parse(msg);
-			res.render('partials/data',{location_data: json['weather'][0]['main'] + "," + json['weather'][0]['description'], 
-				location_name: `${json['name']} (${json['sys']['country']})`, icon:`http://openweathermap.org/img/w/${json['weather'][0]['icon']}.png`});
-			console.log(json)
-		})
-		.catch(function(err){
-			console.log(err);
-			res.send(500, 'Something went wrong');
+			res.send(404, 'Something went wrong');
 		});
 });
 
