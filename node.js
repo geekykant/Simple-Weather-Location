@@ -27,6 +27,23 @@ app.get('/get_weather',function(req,res){
 
 	var request_url = `${url}?appid=${appid}&lat=${req.param('lat')}&lon=${req.param('lon')}`;
 
+	// const options = {  
+	//     url: request_url,
+	//     method: 'GET',
+	//     headers: {'Accept': 'application/json'}
+	// };
+
+	// request(options)
+	// 	.then(function(msg){
+	// 		let json = JSON.parse(msg);
+	// 		res.send({location_data: json['weather'][0]['main'] + "," + json['weather'][0]['description'], 
+	// 			location_name: json['name'],icon:`http://openweathermap.org/img/w/${json['weather'][0]['icon']}.png`});
+	// 	})
+	// 	.catch(function(err){
+	// 		console.log(err);
+	// 		res.send(500, 'Something went wrong');
+	// 	});
+
 	const options = {  
 	    url: request_url,
 	    method: 'GET',
@@ -36,7 +53,7 @@ app.get('/get_weather',function(req,res){
 	request(options)
 		.then(function(msg){
 			let json = JSON.parse(msg);
-			res.send({location_data: json['weather'][0]['main'] + "," + json['weather'][0]['description'], 
+			res.render('partials/data',{location_data: json['weather'][0]['main'] + "," + json['weather'][0]['description'], 
 				location_name: json['name'],icon:`http://openweathermap.org/img/w/${json['weather'][0]['icon']}.png`});
 		})
 		.catch(function(err){
@@ -61,7 +78,7 @@ app.get('/get_by_location',function(req,res){
 	request(options)
 			.then(function(msg){
 			let json = JSON.parse(msg);
-			res.send({location_data: json['weather'][0]['main'] + "," + json['weather'][0]['description'], 
+			res.render('partials/data',{location_data: json['weather'][0]['main'] + "," + json['weather'][0]['description'], 
 				location_name: `${json['name']} (${json['sys']['country']})`, icon:`http://openweathermap.org/img/w/${json['weather'][0]['icon']}.png`});
 			console.log(json)
 		})

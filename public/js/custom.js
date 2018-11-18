@@ -9,14 +9,8 @@ function SubmitLocation() {
             type: "GET",
             url: `get_by_location`,
             data: `location=${location}`,
-            success: function (jsonObj) {
-                $("#location_name").text(jsonObj.location_name);
-                $("#location_data").text(jsonObj.location_data);
-
-                var img = $('<img id="weather_icon">'); 
-                img.attr('src', jsonObj.icon);
-                img.prependTo('#location_name');
-
+            success: function (res_data) {
+                $("#added_locations").append(res_data);
                 $("#submit_location").removeClass('loading');
             }
         });
@@ -51,36 +45,11 @@ function getLocation() {
             type: "GET",
             url: `get_weather`,
             data: `lat=${data.lat}&lon=${data.lon}`,
-            success: function (jsonObj) {
-                $("#location_name").text(jsonObj.location_name);
-                $("#location_data").text(jsonObj.location_data);
-
-                var img = $('<img id="weather_icon">'); 
-                img.attr('src', jsonObj.icon);
-                img.prependTo('#location_name');
-
+            success: function (res_data) {
+                $("#added_locations").append(res_data);
                 $("#get_location_button").removeClass('loading');
             }
         });
-
-        //        var xhttp = new XMLHttpRequest();
-        //        xhttp.onreadystatechange = function () {
-        //            if (this.readyState == 4 && this.status == 200) {
-        //                console.log(xhttp.responseText);
-        //                var jsonObj = JSON.parse(xhttp.responseText);
-        //                
-        //                $("#location_name").text(jsonObj.location_name);
-        //                $("#location_data").text(jsonObj.location_data);
-        //
-        //                $("#get_location_button").removeClass('loading');
-        //            }
-        //        };
-        //        xhttp.open("GET", `get_weather?lat=${data.lat}&lon=${data.lon}`, true);
-        //        xhttp.send();
-
-
-        //        $("#lat").val(position.coords.latitude);
-        //        $("#lon").val(position.coords.longitude);
 
         // add location to database
         //        db.collection("locations").add({
