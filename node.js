@@ -40,7 +40,6 @@ app.get('/get_weather',function(req,res){
 	request(options)
 		.then(function(msg){
 			let json = JSON.parse(msg);
-			console.log(json);
 			res.render('partials/data',{location_data: `${json['weather'][0]['main']}, ${json['weather'][0]['description']}`, 
 				location_name: `${json['name']} (${json['sys']['country']})`,icon:`http://openweathermap.org/img/w/${json['weather'][0]['icon']}.png`,
 				location_celsius: `Min: ${ Math.floor((json['main']['temp_min']-273)* 100)/100 } Max:${Math.floor((json['main']['temp_max']-273)* 100)/100}`});
