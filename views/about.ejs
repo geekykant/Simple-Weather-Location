@@ -8,18 +8,24 @@
     <title>About</title>
 
     <% include partials/extras.ejs %>
+
 </head>
+<% include partials/header.ejs %>
 
-<body>
-    <% include partials/header.ejs %>
-        <h1>Hello there, Welcome to About page.</h1>
-</body>
+    <body>
+        <div class="container" style="margin-top:40px">
+            <h1>Hello there, Welcome to About page.</h1>
+        </div>
 
-<% include partials/footer.ejs %>
+    </body>
 
-<script>
-    (function () {
-        $('.nav-item:eq(3)').addClass('active');
-    })();
-</script>
+    <% include partials/footer.ejs %>
+
+        <script>
+            (function() {
+                $('.nav-item:eq(3)').addClass('active');
+            })();
+
+        </script>
+
 </html>
