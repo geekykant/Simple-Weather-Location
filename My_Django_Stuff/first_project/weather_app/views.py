@@ -11,14 +11,14 @@ import json
 
 
 def index(request):
-    url = "http://api.openweathermap.org/data/2.5/weather"
-
-    params = {'lat': request.GET.get('lat', 35), 'lon': request.GET.get('lon', 139),
-              'appid': 'af9b69f5927b1ad56e894921325ab85e'}
-
-    location_data = \
-        {'location_info': params['lat'], 'location_name' : params['lon']
-         }
+    # url = "http://api.openweathermap.org/data/2.5/weather"
+    #
+    # params = {'lat': request.GET.get('lat', 35), 'lon': request.GET.get('lon', 139),
+    #           'appid': 'af9b69f5927b1ad56e894921325ab85e'}
+    #
+    # location_data = \
+    #     {'location_info': params['lat'], 'location_name' : params['lon']
+    #      }
 
     # weather_api = json.loads(requests.get(url, params).content)
     #
@@ -28,7 +28,7 @@ def index(request):
     #      'location_name': weather_api['name'].encode('utf-8')
     #      }
 
-    return render(request, 'weather_app/index.html', context=location_data)
+    return render(request, 'weather_app/index.html')
 
 
 def about(request):
